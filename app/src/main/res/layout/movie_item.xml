@@ -41,7 +41,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="11dp"
                 android:ellipsize="end"
-                android:lines="1"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="4"
                 android:shadowDy="4"
@@ -88,11 +87,11 @@
 
             <TextView
                 android:id="@+id/genres"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/genres_label"
-                android:layout_toRightOf="@id/genres_label"
+                android:layout_alignTop="@id/genres_label"
                 android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/genres_label"
 
                 android:lineSpacingMultiplier="1.2"
                 android:text="@{mvm.genres}"
