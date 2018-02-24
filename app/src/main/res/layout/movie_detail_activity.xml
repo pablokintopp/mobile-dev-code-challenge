@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="mdvm"
+            type="com.arctouch.pablo.tmdb.viewmodel.MovieDetailViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/title"
+                android:layout_centerHorizontal="true"
+                app:image="@{mdvm.posterPath}" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="4"
+                android:shadowDy="4"
+                android:shadowRadius="4"
+                android:text="@{mdvm.title}"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/genres_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/image"
+                android:layout_alignStart="@+id/image"
+                android:layout_below="@+id/image"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/genres"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/genres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/genres_label"
+                android:layout_alignBottom="@+id/genres_label"
+                android:layout_toRightOf="@id/genres_label"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginRight="18dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@{mdvm.genres}"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/release_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/genres_label"
+                android:layout_alignStart="@+id/genres_label"
+                android:layout_below="@+id/genres_label"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/release_date"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/release_date_label"
+                android:layout_marginLeft="5dp"
+                android:layout_alignBottom="@id/release_date_label"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@{mdvm.releaseDate}"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/release_date"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@{mdvm.overview}" />
+
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+</layout>
