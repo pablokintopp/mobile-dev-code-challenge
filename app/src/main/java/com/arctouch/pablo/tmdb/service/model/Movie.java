@@ -2,6 +2,8 @@ package com.arctouch.pablo.tmdb.service.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,30 +11,29 @@ import java.util.List;
  * Created by Pablo.
  */
 
+@Parcel
 public class Movie {
 
     public static String  IMAGE_URL = "http://image.tmdb.org/t/p/w300";
 
     @SerializedName("id")
-    private int id;
+    int id;
     @SerializedName("vote_average")
-    private double voteAverage;
+    double voteAverage;
     @SerializedName("title")
-    private String title;
+    String title;
     @SerializedName("poster_path")
-    private String posterPath;
+    String posterPath;
     @SerializedName("backdrop_path")
-    private String backdropPath;
+    String backdropPath;
     @SerializedName("genre_ids")
-    private List<Integer> genreIds = new ArrayList<>();
-    // private int voteCount;
-    // private  boolean video;
-    // private double popularity;
-    // private String originalLanguage;
+    List<Integer> genreIds = new ArrayList<>();
     @SerializedName("release_date")
-    private String releaseDate;
+     String releaseDate;
     @SerializedName("overview")
-    private String overview;
+    String overview;
+
+    List<Genre> genres = new ArrayList<>();
 
 
 
@@ -98,5 +99,31 @@ public class Movie {
 
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public String getGenresNames(){
+        return this.genres.toString().replace("[","").replace("]","");
+    }
+
+    public void updateGenre(List<Genre> genres){
+        for ( int genreId : this.getGenreIds()) {
+
+            Genre auxGenre = new Genre();
+            auxGenre.setId(genreId);
+            int genreIndex = genres.indexOf(auxGenre);
+            if(genreIndex >= 0){
+                this.getGenres().add( genres.get(genreIndex));
+            }
+
+
+        }
     }
 }

@@ -5,10 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.arctouch.pablo.tmdb.R;
 import com.arctouch.pablo.tmdb.databinding.MainActivityBinding;
+import com.arctouch.pablo.tmdb.service.model.Genre;
+import com.arctouch.pablo.tmdb.service.model.GenreList;
 import com.arctouch.pablo.tmdb.service.model.Movie;
 import com.arctouch.pablo.tmdb.service.model.MovieList;
 import com.arctouch.pablo.tmdb.service.repository.TmdbService;
@@ -29,25 +33,61 @@ public class MainActivity extends AppCompatActivity {
     private MovieAdapter moviesAdapter = null;
     private static final String TAG = MainActivity.class.getSimpleName();
     private MainActivityBinding binding = null;
-    private boolean isDownloadingMovies = false;
     private int pagination = 1;
+    private List<Genre> genres = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.movieList.setLayoutManager(layoutManager);
-        
+
         LoadApiData();
-
-
 
 
     }
 
     private void LoadApiData() {
+
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(TmdbService.API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        TmdbService tmdbService =  retrofit.create(TmdbService.class);
+
+
+        Call<GenreList> callGenres = tmdbService.getGenresList(tmdbService.API_KEY);
+
+
+        callGenres.enqueue(new Callback<GenreList>() {
+            @Override
+            public void onResponse(Call<GenreList> callGenres, Response<GenreList> response) {
+                genres = response.body().getGenres();
+                Log.d(TAG, "genres received: " + genres.size() );
+
+                LoadMoviesData();
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<GenreList> callGenres, Throwable throwable) {
+                Log.e(TAG, throwable.toString());
+            }
+        });
+
+    }
+
+    private void LoadMoviesData() {
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -66,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                     List<Movie> movies = response.body().getResults();
+                    for ( Movie movie: movies) {
+                        movie.updateGenre(genres);
+                    }
                     int totalPages =  response.body().getTotalPages();
 
                     if(moviesAdapter == null) {
@@ -78,13 +121,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "Movies received: " + movies.size()+" page: "+ pagination );
                     pagination++;
                     if(pagination <= totalPages)
-                        LoadApiData();
+                        LoadMoviesData();
                 }
 
                 @Override
                 public void onFailure(Call<MovieList> call, Throwable throwable) {
                     Log.e(TAG, throwable.toString());
-                    isDownloadingMovies = false;
+
                 }
             });
 
