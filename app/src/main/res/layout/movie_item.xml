@@ -16,7 +16,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         app:cardCornerRadius="4dp"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"
+        android:onClick="@{mvm.onReadMoreClicked}"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -65,20 +67,6 @@
                 android:text="@{mvm.releaseDate}"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <Button
-                android:id="@+id/read_more"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/release_date"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:onClick="@{mvm.onReadMoreClicked}"
-                android:padding="10dp"
-                android:text="Read more" />
 
 
 

@@ -26,19 +26,14 @@ public class MovieViewModel  extends BaseObservable{
         this.mContext = mContext;
     }
 
-    @Bindable
     public  String getTitle(){
         return mMoview.getTitle();
-    }
-
-    public void setTitle(String title) {
-        mMoview.setTitle(title);
-        notifyPropertyChanged(BR.title);
     }
 
     public  String getReleaseDate(){
         return mMoview.getReleaseDate();
     }
+
 
     public String getBackdropPath(){
         return mMoview.getBackdropPath();

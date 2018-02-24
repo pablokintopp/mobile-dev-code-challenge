@@ -49,6 +49,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.BindingHolde
         return mMovies.size();
     }
 
+    public void addItems(List<Movie> newMoviews){
+        this.mMovies.addAll(newMoviews);
+        this.notifyDataSetChanged();
+    }
+
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private MovieItemBinding binding;
 

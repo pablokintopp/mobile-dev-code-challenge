@@ -1,33 +1,40 @@
 package com.arctouch.pablo.tmdb.service.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Pablo.
  */
 
 public class Movie {
 
+    public static String  IMAGE_URL = "http://image.tmdb.org/t/p/w300";
+
+    @SerializedName("id")
     private int id;
-    private float voteAverage;
+    @SerializedName("vote_average")
+    private double voteAverage;
+    @SerializedName("title")
     private String title;
+    @SerializedName("poster_path")
     private String posterPath;
+    @SerializedName("backdrop_path")
     private String backdropPath;
-   // private int genreIds[];
+    @SerializedName("genre_ids")
+    private List<Integer> genreIds = new ArrayList<>();
     // private int voteCount;
     // private  boolean video;
     // private double popularity;
     // private String originalLanguage;
+    @SerializedName("release_date")
     private String releaseDate;
+    @SerializedName("overview")
     private String overview;
 
-    public Movie(int id, float voteAverage, String title, String posterPath, String backdropPath, String releaseDate, String overview) {
-        this.id = id;
-        this.voteAverage = voteAverage;
-        this.title = title;
-        this.posterPath = posterPath;
-        this.backdropPath = backdropPath;
-        this.releaseDate = releaseDate;
-        this.overview = overview;
-    }
+
 
     public int getId() {
         return id;
@@ -37,11 +44,11 @@ public class Movie {
         this.id = id;
     }
 
-    public float getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(float voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -54,7 +61,7 @@ public class Movie {
     }
 
     public String getPosterPath() {
-        return posterPath;
+        return IMAGE_URL + posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -62,7 +69,7 @@ public class Movie {
     }
 
     public String getBackdropPath() {
-        return backdropPath;
+        return  IMAGE_URL + backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
@@ -83,5 +90,13 @@ public class Movie {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public List<Integer> getGenreIds() {
+        return genreIds;
+    }
+
+    public void setGenreIds(List<Integer> genreIds) {
+        this.genreIds = genreIds;
     }
 }
